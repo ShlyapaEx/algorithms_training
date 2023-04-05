@@ -1,7 +1,6 @@
 # https://contest.yandex.ru/contest/44525/problems/B
 
-# Версия 1. Валится на тесте 5 1 1
-#                            6 8 2 1 1
+# Версия 2. Работает исправно, но TL
 
 def main():
     amount_of_sculptures, perfect_kg, minutes_left = map(int, input().split())
@@ -11,17 +10,16 @@ def main():
     result_count = 0
     result_indices = []
 
-    index = 0
-    while minutes_left >= 0 and index < amount_of_sculptures:
-        kg_added_or_deleted = abs(perfect_kg - sculptures_sorted[index])
-        if kg_added_or_deleted <= minutes_left:
-            result_count += 1
-            result_indices.append(sculptures_kg.
-                                  index(sculptures_sorted[index]) + 1)
-
-            minutes_left -= kg_added_or_deleted
-        index += 1
-    return result_count, set(result_indices)
+    for index, current_kg in enumerate(sculptures_sorted):
+        if minutes_left >= 0:
+            kg_added_or_deleted = abs(perfect_kg - current_kg)
+            if kg_added_or_deleted <= minutes_left:
+                result_count += 1
+                found_index = sculptures_kg.index(current_kg)
+                result_indices.append(found_index + 1)
+                sculptures_kg[found_index] = -1
+                minutes_left -= kg_added_or_deleted
+    return result_count, result_indices
 
 
 if __name__ == '__main__':
