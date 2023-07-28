@@ -38,6 +38,7 @@ def compare_test():
 
 
 def slow_get_most_stylish_pair(tshirts: tuple[int], pants: tuple[int]):
+    # Это решение не проходит по времени
     best_tshirt = tshirts[0]
     best_pants = pants[0]
     min_diff = abs(tshirts[0] - pants[0])
